@@ -1,6 +1,7 @@
 const express = require('express');
 const view_routes = require('./controllers/view_routes');
 const user_routes = require('./controllers/user_routes');
+const blog_routes = require('./controllers/blog_routes');
 const db = require('./config/connection');
 const { engine } = require('express-handlebars');
 const session = require('express-session');
@@ -25,7 +26,7 @@ app.use(session({
 }));
 
 // Open our routes at the root level
-app.use('/', view_routes);
+app.use('/', view_routes, blog_routes);
 app.use('/auth', user_routes);
 
 // Sync and create tables
