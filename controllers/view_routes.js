@@ -77,10 +77,20 @@ router.get('/login', isLoggedIn, authenticate, (req, res) => {
     req.session.errors = [];
 });
 
-// Show Create a Post page if the user is authenticated
-router.get('/post', isAuthenticated, authenticate, (req, res) => {
-    res.render('post', {
-      user: req.user
+// Show dashboard only if the user is authenticated
+router.get('/dashboard', isAuthenticated, authenticate, async (req, res) => {    
+    // Find all of the Posts
+    const posts = await Post.findAll({
+        include: {
+            model: User,
+            as: 'author'
+        }
+    });
+    
+    res.render('dashboard', { 
+        user: req.user,
+        // Send back only the plain objects for the posts array
+        posts: posts.map(p => p.get({ plain: true }))
     });
 
     req.session.errors = [];
