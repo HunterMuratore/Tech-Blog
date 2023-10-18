@@ -1,5 +1,6 @@
 const express = require('express');
 const view_routes = require('./controllers/view_routes');
+const user_routes = require('./controllers/user_routes');
 const db = require('./config/connection');
 const { engine } = require('express-handlebars');
 const session = require('express-session');

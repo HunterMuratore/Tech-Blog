@@ -1,0 +1,13 @@
+<h1 class="text-center">Tech Blog</h1>
+
+<section class="column align-center blog-output">
+    {{#each posts}}
+        <div class="blog text-center">
+            <h3>{{text}}</h3>
+            <div class="row justify-between">
+                <p>By: {{author.email}}</p>
+                <p>On: {{date}}</p>
+            </div>
+        </div>
+    {{/each}}
+</section>

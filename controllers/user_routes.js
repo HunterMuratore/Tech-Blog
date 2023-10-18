@@ -28,7 +28,7 @@ router.post('/login', async (req, res) => {
     // Find the user by the email they sent through the form
     const user = await User.findOne({
         where: {
-            email: data.email
+            username: data.username
         }
     });
 

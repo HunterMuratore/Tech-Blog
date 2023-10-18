@@ -13,8 +13,8 @@
 
         <nav class="row align-center">
             {{#if user}}
-                <p>Welcome, <span>{{user.email}}</span>!</p>
-                <a href="/coo">Create a Post</a>
+                <p>Welcome, <span>{{user.username}}</span>!</p>
+                <a href="/post">Create a Post</a>
                 <span>or</span>
                 <a href="/auth/logout">Log Out</a>
             {{else}}

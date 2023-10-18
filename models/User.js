@@ -7,15 +7,18 @@ const Post = require('./Post');
 class User extends Model { }
 
 User.init({
-    email: {
+    username: {
         type: DataTypes.STRING,
         allowNull: false,
         unique: {
             args: true, 
-            msg: 'That email address is already in use.'
+            msg: 'That username address is already in use.'
         },
         validate: {
-            isEmail: true
+            len: {
+                args: 3, 
+                msg: 'Username must be at least 3 characters long.'
+            }
         }
     },
     password: {

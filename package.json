@@ -20,6 +20,7 @@
   "homepage": "https://github.com/HunterMuratore/Tech-Blog#readme",
   "dependencies": {
     "bcrypt": "^5.1.1",
+    "dayjs": "^1.11.10",
     "dotenv": "^16.3.1",
     "express": "^4.18.2",
     "express-handlebars": "^7.1.2",

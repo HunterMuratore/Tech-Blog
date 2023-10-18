@@ -29,7 +29,7 @@ async function authenticate(req, res, next) {
     if (user_id) {
         // Access to the user id stored in the login route
         const user = await User.findByPk(user_id, {
-            attributes: ['id', 'email']
+            attributes: ['id', 'username']
         });
 
         req.user = user.get({ plain: true });
@@ -48,9 +48,9 @@ router.get('/', authenticate, async (req, res) => {
         }
     });
 
-    res.render('landing', { 
+    res.render('home', { 
         user: req.user,
-        // Send back only the plain objects for the coos array
+        // Send back only the plain objects for the posts array
         posts: posts.map(p => p.get({ plain: true }))
     });
 });
