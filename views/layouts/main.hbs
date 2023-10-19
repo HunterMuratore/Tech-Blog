@@ -8,17 +8,20 @@
 </head>
 <body>
     <header class="row justify-between align-center">
-        <a href="/"><h3>Tech Blog</h3></a>
+        <a href="/"><h3 class="accent">Tech Blog</h3></a>
+
+        {{#if user}}
+            <p>Welcome, <span class="username accent">{{user.username}}</span>!</p>
+        {{/if}}
 
         <nav class="row align-center">
             {{#if user}}
-                <p>Welcome, <span>{{user.username}}</span>!</p>
                 <a href="/dashboard">Dashboard</a>
-                <span>or</span>
+                <span class="accent">or</span>
                 <a href="/auth/logout">Log Out</a>
             {{else}}
                 <a href="/register">Register</a>
-                <span>or</span>
+                <span class="accent">or</span>
                 <a href="/login">Login</a>
             {{/if}}
         </nav>
