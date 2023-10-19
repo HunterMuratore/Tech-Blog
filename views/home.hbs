@@ -1,11 +1,11 @@
-<h1 class="text-center">Tech Blog</h1>
+<h1 class="text-center accent">Tech Blog</h1>
 
 <section class="column align-center post-output">
     {{#each posts}}
         <div class="box post text-center">
-            <div class="row text-center justify-between align-center">
-                <h2>{{title}}</h2>
-                <p>Posted by {{author.username}} on {{date}}</p>
+            <div class="post-heading row text-center justify-between align-center">
+                <h2 class="accent">{{title}}</h2>
+                <p class="post-author accent">Posted by {{author.username}} on {{date}}</p>
             </div>
             <h3>{{text}}</h3>
         </div>

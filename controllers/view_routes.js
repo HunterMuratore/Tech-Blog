@@ -79,17 +79,20 @@ router.get('/login', isLoggedIn, authenticate, (req, res) => {
 
 // Show dashboard only if the user is authenticated
 router.get('/dashboard', isAuthenticated, authenticate, async (req, res) => {    
-    // Find all of the Posts
+    const user_id = req.session.user_id;
+    // Find all of the Posts by the user
     const posts = await Post.findAll({
+        where: {
+            author_id: user_id
+        },
         include: {
             model: User,
             as: 'author'
         }
     });
     
-    res.render('dashboard', { 
+    res.render('dashboard', {
         user: req.user,
-        // Send back only the plain objects for the posts array
         posts: posts.map(p => p.get({ plain: true }))
     });
 
