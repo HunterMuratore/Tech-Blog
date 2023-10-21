@@ -36,7 +36,10 @@ router.post('/dashboard', isAuthenticated, authenticate, async (req, res) => {
 
         res.redirect('/dashboard');
     } catch (err) {
-        req.session.errors = err.errors.map(errObj => errObj.message);
+        console.log(err);
+        if (err.errors) {
+            req.session.errors = err.errors.map(errObj => errObj.message);
+        }
         res.redirect('/dashboard');
     }
 });

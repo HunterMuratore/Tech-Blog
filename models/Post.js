@@ -16,12 +16,12 @@ Post.init({
         }
     },
     text: {
-        type: DataTypes.STRING,
+        type: DataTypes.STRING(500),
         allowNull: false,
         validate: {
             len: {
-                args: 3, 
-                msg: 'Your Post must be at least 3 characters long'
+                args: [3, 500], 
+                msg: 'Your Post must be between 3 and 500 characters long'
             }
         }
     },
