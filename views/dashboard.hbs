@@ -16,7 +16,14 @@
                 <h2 class="accent">{{title}}</h2>
                 <p class="post-author accent">Posted by {{author.username}} on {{date}}</p>
             </div>
-            <h3>{{text}}</h3>
+            <div class="post-text-container">
+                <p class="post-text">{{text}}</p>
+                <input type="text" class="edit-post-input" style="display: none;">
+            </div>
+            <div class="options row">
+                <button id="updateBtn"><i class="fa-solid fa-pen-nib fa-xl"></i></button>
+                <button id="deleteBtn"><i class="fa-solid fa-trash-can fa-xl"></i></button>
+            </div>
         </div>
     {{/each}}
 </section>
