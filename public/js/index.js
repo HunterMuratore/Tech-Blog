@@ -3,8 +3,6 @@ $(document).ready(function () {
     const charCount = $('#charCount');
     const form = $('#postForm');
     const submitButton = $('#submitBtn');
-    const updateBtn = $(".updateBtn");
-    const deleteBtn = $(".deleteBtn");
 
     inputField.on('input', function () {
         const inputValue = inputField.val();
@@ -56,6 +54,7 @@ $(document).ready(function () {
 
     $(".post-output").on("click", ".deleteBtn", function () {
         const postId = $(this).data("post-id");
+        const deleteBtn = $(this);
 
         if (confirm("Are you sure you want to delete this post?")) {
             fetch(`/delete/${postId}`, {
@@ -74,7 +73,8 @@ $(document).ready(function () {
                 .catch(error => {
                     console.log(error.message);
                 });
-        }
+            }
+        location.reload();
     });
 
     function updatePostText(postId, newText) {
