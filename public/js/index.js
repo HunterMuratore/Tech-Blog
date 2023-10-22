@@ -3,8 +3,8 @@ $(document).ready(function () {
     const charCount = $('#charCount');
     const form = $('#postForm');
     const submitButton = $('#submitBtn');
-    const updateBtn = $("#updateBtn");
-    const deleteBtn = $("#deleteBtn");
+    const updateBtn = $(".updateBtn");
+    const deleteBtn = $(".deleteBtn");
 
     inputField.on('input', function () {
         const inputValue = inputField.val();
@@ -28,10 +28,11 @@ $(document).ready(function () {
         }
     });
 
-    updateBtn.click(function () {
-        var postContainer = $(this).closest(".post");
-        var postText = postContainer.find(".post-text");
-        var editInput = postContainer.find(".edit-post-input");
+    $(".post-output").on("click", ".updateBtn", function () {
+        const postId = $(this).data("post-id");
+        const postContainer = $(this).closest(".post");
+        const postText = postContainer.find(".post-text");
+        const editInput = postContainer.find(".edit-post-input");
 
         postText.hide();
         editInput.show();
@@ -39,39 +40,22 @@ $(document).ready(function () {
         // Set the input field's value to the current text
         editInput.val(postText.text());
 
-        // Fetch the postId associated with the post text
-        fetch(`/getPostId?text=${encodeURIComponent(postText.text())}`, {
-            method: 'GET',
-        })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Error fetching postId');
-                }
-                return response.json();
-            })
-            .then(data => {
-                var postId = data.postId;
+        // When the user presses enter, save the edited text
+        editInput.keypress(function (e) {
+            if (e.which === 13) {
+                const newText = editInput.val();
+                postText.text(newText);
 
-                // When the user presses enter, save the edited text
-                editInput.keypress(function (e) {
-                    if (e.which === 13) {
-                        var newText = editInput.val();
-                        postText.text(newText);
+                updatePostText(postId, newText);
 
-                        updatePostText(postId, newText);
-
-                        editInput.hide();
-                        postText.show();
-                    }
-                });
-            })
-            .catch(error => {
-                console.log(error.message);
-            });
+                editInput.hide();
+                postText.show();
+            }
+        });
     });
 
-    deleteBtn.click(function () {
-        var postId = deleteBtn.data("post-id");
+    $(".post-output").on("click", ".deleteBtn", function () {
+        const postId = $(this).data("post-id");
 
         if (confirm("Are you sure you want to delete this post?")) {
             fetch(`/delete/${postId}`, {
@@ -95,7 +79,7 @@ $(document).ready(function () {
 
     function updatePostText(postId, newText) {
         fetch("/update", {
-            method: "POST",
+            method: "PUT",
             headers: {
                 "Content-Type": "application/json",
             },

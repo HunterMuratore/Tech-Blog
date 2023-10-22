@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const Post = require('../models/Post');
-const { authenticate, isLoggedIn, isAuthenticated } = require('../middleware/authenticate');
+const { authenticate, isAuthenticated } = require('../middleware/authenticate');
 
 // Create a Blog Post
 router.post('/create', isAuthenticated, authenticate, async (req, res) => {
@@ -41,13 +41,11 @@ router.put("/update", isAuthenticated, authenticate, async (req, res) => {
     }
   });
   
-  router.get('/getPostId', async (req, res) => {
-    const postText = req.query.text;
+  router.get('/getPostId/:id', async (req, res) => {
+    const postId = req.params.id;
   
     try {
-      const post = await Post.findOne({
-        where: { text: postText }
-      });
+      const post = await Post.findByPk(postId);
   
       if (!post) {
         res.status(404).json({ error: "Post not found" });
