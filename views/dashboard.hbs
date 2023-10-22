@@ -1,4 +1,4 @@
-<form id="postForm" action="/dashboard" method="POST">
+<form id="postForm" action="/create" method="POST">
     <h1 class="accent">Create a Post!</h1>
     {{#each errors}}
     <p class="error text-center">{{this}}</p>
@@ -11,19 +11,19 @@
 
 <section class="column align-center post-output">
     {{#each posts}}
-        <div class="box post text-center">
-            <div class="post-heading row text-center justify-between align-center">
-                <h2 class="accent">{{title}}</h2>
-                <p class="post-author accent">Posted by {{author.username}} on {{date}}</p>
-            </div>
-            <div class="post-text-container">
-                <p class="post-text">{{text}}</p>
-                <input type="text" class="edit-post-input" style="display: none;">
-            </div>
-            <div class="options row">
-                <button id="updateBtn"><i class="fa-solid fa-pen-nib fa-xl"></i></button>
-                <button id="deleteBtn"><i class="fa-solid fa-trash-can fa-xl"></i></button>
-            </div>
+    <div class="box post text-center">
+        <div class="post-heading row text-center justify-between align-center">
+            <h2 class="accent">{{title}}</h2>
+            <p class="post-author accent">Posted by {{author.username}} on {{date}}</p>
         </div>
+        <div class="post-text-container">
+            <p class="post-text">{{text}}</p>
+            <input type="text" class="edit-post-input" style="display: none;">
+        </div>
+        <div class="options row">
+            <button id="updateBtn" data-post-id="{{id}}"><i class="fa-solid fa-pen-nib fa-xl"></i></button>
+            <button id="deleteBtn" data-post-id="{{id}}"><i class="fa-solid fa-trash-can fa-xl"></i></button>
+        </div>
+    </div>
     {{/each}}
 </section>

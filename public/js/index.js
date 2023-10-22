@@ -4,6 +4,7 @@ $(document).ready(function () {
     const form = $('#postForm');
     const submitButton = $('#submitBtn');
     const updateBtn = $("#updateBtn");
+    const deleteBtn = $("#deleteBtn");
 
     inputField.on('input', function () {
         const inputValue = inputField.val();
@@ -31,11 +32,10 @@ $(document).ready(function () {
         var postContainer = $(this).closest(".post");
         var postText = postContainer.find(".post-text");
         var editInput = postContainer.find(".edit-post-input");
-    
-        // Show the input field, hide the text
+
         postText.hide();
         editInput.show();
-    
+
         // Set the input field's value to the current text
         editInput.val(postText.text());
 
@@ -52,16 +52,14 @@ $(document).ready(function () {
             .then(data => {
                 var postId = data.postId;
 
-                // When the user presses enter (13), save the edited text
+                // When the user presses enter, save the edited text
                 editInput.keypress(function (e) {
                     if (e.which === 13) {
                         var newText = editInput.val();
                         postText.text(newText);
 
-                        // Send the updated text and postId to the server
                         updatePostText(postId, newText);
 
-                        // Hide the input and show the text again
                         editInput.hide();
                         postText.show();
                     }
@@ -70,6 +68,29 @@ $(document).ready(function () {
             .catch(error => {
                 console.log(error.message);
             });
+    });
+
+    deleteBtn.click(function () {
+        var postId = deleteBtn.data("post-id");
+
+        if (confirm("Are you sure you want to delete this post?")) {
+            fetch(`/delete/${postId}`, {
+                method: "DELETE",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+            })
+                .then((response) => {
+                    if (response.ok) {
+                        deleteBtn.closest(".post").remove();
+                    } else {
+                        throw new Error("Failed to delete the post.");
+                    }
+                })
+                .catch(error => {
+                    console.log(error.message);
+                });
+        }
     });
 
     function updatePostText(postId, newText) {
