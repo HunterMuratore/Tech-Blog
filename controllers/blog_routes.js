@@ -1,38 +1,14 @@
 const router = require('express').Router();
-const User = require('../models/User');
 const Post = require('../models/Post');
+const { authenticate, isLoggedIn, isAuthenticated } = require('../middleware/authenticate');
 
-/* /post routes */
-
-// Can export this in a separate file and use where needed
-function isAuthenticated(req, res, next) {
-    if (!req.session.user_id) {
-        return res.redirect('/login');
-    }
-
-    next();
-}
-
-// Can export this in a separate file and use where needed
-async function authenticate(req, res, next) {
-    const user_id = req.session.user_id;
-    
-    if (user_id) {
-        const user = await User.findByPk(user_id);
-
-        req.user = user;
-    }
-
-    next();
-}
-
-// Create a Post
+// Create a Blog Post
 router.post('/dashboard', isAuthenticated, authenticate, async (req, res) => {
     try {
-        const post = await Post.create(req.body);
+        const newPost = await Post.create(req.body);
 
         // Add the Post to the user in the session
-        await req.user.addPost(post);
+        await req.user.addPost(newPost);
 
         res.redirect('/dashboard');
     } catch (err) {
