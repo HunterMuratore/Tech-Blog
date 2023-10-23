@@ -19,7 +19,7 @@ Users can update and delete their blog posts and interact with blog posts from o
 
 This app can be used as a tech forum to interact with other users through posts and comments.
 
-![Tech Blog Web App]('/assets/images/home_page.png')
+![Tech Blog Web App]('./public/assets/images/home_page.png')
 
 ## License
 
