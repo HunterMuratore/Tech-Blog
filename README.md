@@ -1,5 +1,8 @@
 # Tech Blog Web App
 
+Link to deployed app:
+><https://floating-waters-36483-8b92f773fdcc.herokuapp.com/>
+
 ## Description
 
 This is a full-stack app that allows users to register and login to an account. 
